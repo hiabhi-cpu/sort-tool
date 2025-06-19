@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"slices"
 	"strings"
 )
 
@@ -33,7 +32,14 @@ func readFile(fileName string, commands []string) {
 	}
 
 	// fmt.Println(len(lines))
-	slices.Sort(filterdLines)
+	// slices.Sort(filterdLines)
+
+	// temp := lines[0:10]
+	// fmt.Println(temp)
+	// temp = mergeSort(temp)
+	// fmt.Println(temp)
+
+	filterdLines = mergeSort(filterdLines)
 
 	finalList, err := filterOnCommand(filterdLines, commands)
 	check(err)
