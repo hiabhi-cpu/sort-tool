@@ -70,6 +70,8 @@ func sortBased(lines, args []string) []string {
 		lines = mergeSort(lines)
 	} else if sortName == "quick" {
 		quickSort(lines)
+	} else if sortName == "random" {
+		randomSort(lines)
 	}
 	return lines
 }
