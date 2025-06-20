@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"slices"
 	"strings"
 )
 
@@ -39,8 +40,7 @@ func readFile(fileName string, commands []string) {
 	// temp = mergeSort(temp)
 	// fmt.Println(temp)
 
-	filterdLines = mergeSort(filterdLines)
-
+	filterdLines = sortBased(filterdLines, os.Args)
 	finalList, err := filterOnCommand(filterdLines, commands)
 	check(err)
 
@@ -48,6 +48,30 @@ func readFile(fileName string, commands []string) {
 		fmt.Println(r)
 	}
 
+}
+
+func sortBased(lines, args []string) []string {
+
+	flag := false
+	sortName := ""
+	for _, r := range args {
+		if strings.Contains(r, "-s") {
+			flag = true
+			sortName = strings.TrimLeft(r, "-s=")
+		}
+	}
+
+	if !flag {
+		slices.Sort(lines)
+		return lines
+	}
+	// fmt.Println(sortName)
+	if sortName == "merge" {
+		lines = mergeSort(lines)
+	} else if sortName == "quick" {
+		quickSort(lines)
+	}
+	return lines
 }
 
 func filterOnCommand(filterdLines, commands []string) ([]string, error) {
